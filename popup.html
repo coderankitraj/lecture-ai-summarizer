@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture AI Summarizer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="brand-icon">✦</div>
+      <div><h1>Lecture Summarizer</h1><p>Turn long lectures into clear notes</p></div>
+    </header>
+    <div class="actions">
+      <button id="summarizePage" class="primary">Summarize this page</button>
+      <button id="summarizeSelection" class="secondary">Summarize selected text</button>
+    </div>
+    <div id="status" class="status" role="status">Ready when you are.</div>
+    <section id="resultSection" class="result-section hidden">
+      <div class="result-heading"><h2>Your study notes</h2><button id="copyBtn" class="copy">Copy</button></div>
+      <article id="result" class="result"></article>
+      <button id="downloadBtn" class="download">Download notes (.txt)</button>
+    </section>
+    <footer>Local backend · AI summaries · Study smarter</footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

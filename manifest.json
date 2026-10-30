@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Lecture AI Summarizer",
+  "version": "1.0.0",
+  "description": "Summarize lecture pages and selected text into concise study notes.",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["http://localhost:8787/*"],
+  "action": {
+    "default_title": "Lecture AI Summarizer",
+    "default_popup": "popup.html"
+  }
+}
