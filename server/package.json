@@ -1,0 +1,13 @@
+{
+  "name": "lecture-ai-summarizer-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API for the Lecture AI Summarizer browser extension",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=18" }
+}
