@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: lecture-ai-summarizer-coderankitraj
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "30"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "60000"
+      - key: GEMINI_API_KEY
+        sync: false
