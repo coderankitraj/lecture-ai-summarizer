@@ -26,7 +26,13 @@ Chrome extension ── POST /api/summarize ──► Node.js API
                                   Gemini             Extractive fallback
 ```
 
-The extension reads page content only after the user clicks a summarize action. For local use, the API runs on the same machine. For a shared installation, deploy the API separately and configure its URL in the extension.
+The extension reads page content only after the user clicks a summarize action. By default, it uses the hosted API below. To run locally, start the backend and change `API_BASE_URL` in `extension/api-config.js` to `http://127.0.0.1:8787`.
+
+## Hosted API
+
+The public API is deployed at [lecture-ai-summarizer-coderankitraj.onrender.com](https://lecture-ai-summarizer-coderankitraj.onrender.com). Check its [health endpoint](https://lecture-ai-summarizer-coderankitraj.onrender.com/api/health).
+
+The free Render instance may sleep when idle, so the first request can take about a minute. It currently uses the extractive fallback because no Gemini API key is configured. Add `GEMINI_API_KEY` as a secret in the Render dashboard to enable Gemini summaries; never commit the key to GitHub.
 
 ## Requirements
 
@@ -65,16 +71,15 @@ Without a key, the API returns the local extractive summary. Restart the server 
 3. Pin **Lecture AI Summarizer** from the Extensions menu.
 4. Open a normal article or transcript page and use the extension popup.
 
-## Deploy the API on Render
+## Render deployment
 
-`render.yaml` defines a Render Blueprint for a small demo deployment. Free Render services sleep after 15 minutes without traffic; the first request after sleep can take about a minute to wake up.
+`render.yaml` defines the Render Blueprint used for the hosted service. To deploy your own copy or a fork:
 
 1. Push the project to GitHub. Do not commit `.env` or API keys.
 2. In Render, choose **New → Blueprint** and connect the repository.
-3. Review and deploy the `lecture-ai-summarizer-coderankitraj` service.
-4. Add `GEMINI_API_KEY` as a secret in Render if Gemini summaries are needed.
-5. Set `API_BASE_URL` in `extension/api-config.js` to the deployed service origin, then update the matching host permission in `extension/manifest.json`.
-6. Reload the extension and verify the deployed `/api/health` endpoint.
+3. Add `GEMINI_API_KEY` as a secret in the Render environment settings if Gemini summaries are needed.
+4. Set `API_BASE_URL` in `extension/api-config.js` to your service origin and update the matching host permission in `extension/manifest.json`.
+5. Reload the unpacked extension and verify your service's `/api/health` endpoint.
 
 Public API requests share a limit of 30 summaries per minute per running service instance. This is not user authentication. Anyone with the endpoint can call it, so monitor Gemini quota and add per-user authentication before using it at larger scale. Only send content you have permission to process.
 
@@ -87,8 +92,8 @@ lecture-ai-summarizer/
 ├── extension/
 │   ├── api-config.js
 │   ├── manifest.json
-│   ├── popup.css
 │   ├── popup.html
+│   ├── popup.css
 │   └── popup.js
 ├── server/
 │   ├── .env.example
